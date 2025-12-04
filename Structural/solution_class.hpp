@@ -1,4 +1,5 @@
 #include "../Solutions/C++/Two_Sum.hpp"
+#include "../Solutions/C++/Add_Two_Numbers.hpp"
 
 class Solution {
     // Has to take input as a str from list of strs
@@ -17,6 +18,8 @@ private:
 public:
     Solution() {
         solutions_map["0001"] = make_shared<TwoSum>();
+        solutions_map["0002"] = make_shared<AddTwoNumbers>();
+        // Add more solutions here as needed
     }
 
     shared_ptr<ProblemSolver> get_solution(const string& problem_id) {

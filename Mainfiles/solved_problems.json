@@ -8,6 +8,14 @@
                 {"index": 0, "name": "bruteforce"},
                 {"index": 1, "name": "hashmap"}
             ]
+        }, {
+            "id": 2,
+            "name": "Add Two Numbers",
+            "languages": ["python", "cpp"],
+            "methods": [
+                {"index": 0, "name": "iterative"},
+                {"index": 1, "name": "recursive"}
+            ]
         }
     ]
 }

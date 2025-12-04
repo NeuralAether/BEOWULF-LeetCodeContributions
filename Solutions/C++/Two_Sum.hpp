@@ -1,4 +1,3 @@
-#include "../../config/common.hpp"
 #include "../../config/problem_solver.hpp"
 
 class TwoSum : public ProblemSolver {
@@ -7,7 +6,6 @@ private:
     const string name = "Two Sum";
     const string description = "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.";
     const string version = "1.0"; 
-    int order = 1; 
     const vector<string> declinations = {"bruteforce", "hashmap"};
     const vector<string> name_desc_ver = {name, description, version};
     const unordered_map<string, string> inputs = {{"nums", "vector<int>"}, {"target", "int"}};

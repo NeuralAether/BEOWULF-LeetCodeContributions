@@ -34,14 +34,20 @@ class PythonRunner:
         return data
     
     def __run_test_case(self, case : dict):
+        passed = True
         description = case.pop('description', 'No description')
         expected_output = case.pop('expected_output', None)
+        print(f"Running test case: {description}")
         result = self.solution_function(**case.get('inputs', {}), method=self.method_name) 
         # Check if the result matches the expected output
         if expected_output is not None:
-            assert result == expected_output, f"Test failed for case: {description}. Expected {expected_output}, got {result}"
-        print(f"Description: {description}, Input: {case.get('inputs', {})}, Expected Output: {expected_output}")
-        print(f"Result: {result} -> Test Passed!")
+            if result != expected_output:
+                print(f"\033[0;31mTest failed for case: {description}. Expected {expected_output}, got {result}\033[0m")
+                passed = False
+            else:
+                print(f"Description: {description}, Input: {case.get('inputs', {})}, Expected Output: {expected_output}")
+                print(f"\033[0;32mResult: {result} -> Test Passed!\033[0m")
+        return passed
 
     def run_eager(self, problem_id, method_index : int):
         # Getting the solution function and declinations
@@ -54,18 +60,23 @@ class PythonRunner:
         # Getting the data 
         data = self.__get_test_data(problem_id)
         # Running the solution with the specified method
+        all_passed = True
         start_time = tm.time()
         base = data.get('Base',[])  
         print("------ Testing the solution with Base data ------")
         for case in base:
-            self.__run_test_case(case)
+            all_passed = all_passed and self.__run_test_case(case)
         # Running the solution with the extra data
         extra = data.get('Edge',[])
         print("------ Testing the solution with Edge cases ------")
         for case in extra:
-            self.__run_test_case(case)
+            all_passed = all_passed and self.__run_test_case(case)
         end_time = tm.time()
-        print(f"All Test Cases Passed ! Total execution time: {end_time - start_time} seconds")
+        if not all_passed:
+            print(f"\033[0;31mSome Test Cases Failed! \033[0m", end="")
+        else:
+            print(f"\033[0;32mAll Test Cases Passed! \033[0m", end="")
+        print(f"Total execution time: {end_time - start_time:.3f} seconds")
 
     def run_inline(self, problem_id, method_index : int, **kwargs):
         pass # Made for future use

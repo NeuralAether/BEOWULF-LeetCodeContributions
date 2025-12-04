@@ -1,0 +1,70 @@
+{
+    "Base" : [
+        {
+            "inputs" : {
+                "l1" : [2,4,3],
+                "l2" : [5,6,4]
+            },
+            "description" : "Example call to Add Two Numbers problem",
+            "expected_output" : [7,0,8]
+        }, 
+        {
+            "inputs" : {
+                "l1" : [0],
+                "l2" : [0]
+            },
+            "description" : "Second example call to Add Two Numbers problem",
+            "expected_output" : [0]
+        }, 
+        {
+            "inputs" : {
+                "l1" : [9,9,9,9,9,9,9],
+                "l2" : [9,9,9,9]
+            },
+            "description" : "Third example call to Add Two Numbers problem with different lengths",
+            "expected_output" : [8,9,9,9,0,0,0,1]
+        }, 
+        {
+            "inputs" : {
+                "l1" : [1,8],
+                "l2" : [0]
+            },
+            "description" : "Fourth example call to Add Two Numbers problem with zero",
+            "expected_output" : [1,8] 
+        },
+        {
+            "inputs" : {
+                "l1" : [5],
+                "l2" : [5]
+            },
+            "description" : "Fifth example call to Add Two Numbers problem resulting in carry",
+            "expected_output" : [0,1] 
+        }
+    ] , 
+    "Edge" : [
+        {
+            "inputs" : {
+                "l1" : [0,0],
+                "l2" : [0,0]
+            },
+            "description" : "Edge case with leading zeros",
+            "expected_output" : [0,0] 
+        },
+        {
+            "inputs" : {
+                "l1" : [1,9,9],
+                "l2" : [9,9,9]
+            },
+            "description" : "Edge case with multiple carries",
+            "expected_output" : [0,9,9,1] 
+        }, 
+        {
+            "inputs" : {
+                "l1" : [2,1],
+                "l2" : [8,9,9]
+            },
+            "description" : "Edge case with different lengths and carry",
+            "expected_output" : [0,1,0,1] 
+        }
+    ]
+}

@@ -8,7 +8,6 @@ class TwoSum:
         self.name = "Two Sum"
         self.description = "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target."
         self.version = "1.0"
-        self.order = 1  # Problem number
         self.declinations = ['bruteforce', 'hashmap']  # Different methods to solve the problem
     # First solution O(n^2)
     def __twoSum_bruteforce(self, nums, target):

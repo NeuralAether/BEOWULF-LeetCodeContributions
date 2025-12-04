@@ -1,6 +1,6 @@
 # Solutions 
 from Solutions.Python.Two_Sum import TwoSum
-
+from Solutions.Python.Add_Two_Number import AddTwoNumber
 class Solution:
     def __init__(self):
         self.solution_name = "Base Solution Class"
@@ -8,6 +8,7 @@ class Solution:
         self.version = "1.0"
         self.solutions = {
             "0001": TwoSum(),
+            "0002": AddTwoNumber(),
         }  # Dictionary to hold different solution methods
     
     def get_solution(self, problem_id):
@@ -17,6 +18,7 @@ class Solution:
         if problem_id not in self.solutions:
             print(f"Solution for problem ID {problem_id} not found.")
             return None
+        print(self.solutions.get(problem_id, None).description)
         return self.solutions.get(problem_id, None)
     
     def get_solution_declinations(self, problem_id):

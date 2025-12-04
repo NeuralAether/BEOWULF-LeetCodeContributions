@@ -58,7 +58,8 @@ class Runner {
             return data;
         }
 
-        void runTestCase(json& case_data) {
+        bool runTestCase(json& case_data) {
+            bool passed = true;
             string description = case_data.value("description", "");
             cout << "Running test case: " << description << endl;
             json expected_output_json = case_data["expected_output"];
@@ -72,14 +73,26 @@ class Runner {
                 actual_output_json = get<vector<int>>(actual_output);
             } else if (holds_alternative<int>(actual_output)) {
                 actual_output_json = get<int>(actual_output);
+            } else if (holds_alternative<ListNode*>(actual_output)) {
+                ListNode* head = get<ListNode*>(actual_output);
+                // Convert linked list to json array for comparison
+                actual_output_json = json::array();
+                while (head != nullptr) {
+                    actual_output_json.push_back(head->val);
+                    head = head->next;
+                }
+            } else {
+                throw runtime_error("Unsupported ProblemResult type");
             }
             
             if (actual_output_json != expected_output_json) {
-                cout << "Test failed for case: " << description << ". Expected " << expected_output_json.dump() << ", got " << actual_output_json.dump() << endl;
+                cout << "\033[0;31m" << "Test failed for case: " << description << ". Expected " << expected_output_json.dump() << ", got " << actual_output_json.dump() << "\033[0m" << endl;
+                passed = false;
             } else {
                 cout << "Description : " << description << ", Input : " << inputs_json.dump() << ", Expected Output : " << expected_output_json.dump() << endl;
-                cout << "Result: " << actual_output_json.dump() << " -> Test Passed!" << endl;
+                cout << "\033[0;32m" << "Result: " << actual_output_json.dump() << " -> Test Passed!" << "\033[0m" << endl;
             }
+            return passed;
         }
 
     public:
@@ -95,22 +108,27 @@ class Runner {
             cout << "Running tests for problem ID: " << problem_id << " using method: " << method_name << endl;
             cout << "Problem Description: " << solution_function->get_name_description_version()[1] << endl;
             cout << "---------------------------------------------------" << endl;
-            
+            bool all_passed = true;
             auto start_time = chrono::high_resolution_clock::now();
             json data = getTestData(problem_id);
             json base = data.value("Base", json::array());
             cout << "------ Testing the solution with Base data ------" << endl;
             for (auto& case_data : base) {
-                runTestCase(case_data);
+                all_passed = all_passed && runTestCase(case_data);
             }
             json edge = data.value("Edge", json::array());
             cout << "------ Testing the solution with Edge data ------" << endl;
             for (auto& case_data : edge) {
-                runTestCase(case_data);
+                all_passed = all_passed && runTestCase(case_data);
             }
             auto end_time = chrono::high_resolution_clock::now();
             auto duration = chrono::duration_cast<chrono::milliseconds>(end_time - start_time).count();
-            cout << "All Test Cases Passed! Total execution time: " << duration << " ms" << endl;
+            if (!all_passed) {
+                cout << "\033[0;31m" << "Some Test Cases Failed! " << "\033[0m";
+            } else {
+                cout << "\033[0;32m" << "All Test Cases Passed! " << "\033[0m";
+            }
+            cout << "Total execution time: " << duration << " ms" << endl;
         }  
 };
 

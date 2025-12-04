@@ -1,8 +1,12 @@
+#ifndef PROBLEM_SOLVER_HPP
+#define PROBLEM_SOLVER_HPP
+
 #include "common.hpp"
 
 using ProblemResult = variant<
     vector<int>,
-    int
+    int,
+    ListNode*
 >;
 
 class ProblemSolver {
@@ -12,3 +16,5 @@ public:
     virtual const vector<string>& get_declinations() const = 0;
     virtual const vector<string>& get_name_description_version() const = 0;
 }; 
+
+#endif 
