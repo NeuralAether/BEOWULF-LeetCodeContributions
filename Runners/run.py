@@ -36,11 +36,11 @@ class PythonRunner:
     def __run_test_case(self, case : dict):
         description = case.pop('description', 'No description')
         expected_output = case.pop('expected_output', None)
-        result = self.solution_function(**case, method=self.method_name) 
+        result = self.solution_function(**case.get('inputs', {}), method=self.method_name) 
         # Check if the result matches the expected output
         if expected_output is not None:
             assert result == expected_output, f"Test failed for case: {description}. Expected {expected_output}, got {result}"
-        print(f"Description: {description}, Input: {case}, Expected Output: {expected_output}")
+        print(f"Description: {description}, Input: {case.get('inputs', {})}, Expected Output: {expected_output}")
         print(f"Result: {result} -> Test Passed!")
 
     def run_eager(self, problem_id, method_index : int):

@@ -1,0 +1,13 @@
+{
+    "problems": [
+        {
+            "id": 1,
+            "name": "Two Sum",
+            "languages": ["python", "cpp"],
+            "methods": [
+                {"index": 0, "name": "bruteforce"},
+                {"index": 1, "name": "hashmap"}
+            ]
+        }
+    ]
+}

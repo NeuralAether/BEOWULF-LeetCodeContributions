@@ -60,10 +60,9 @@ class TwoSum:
         return [] # In case there is no solution
     
     def __call__(self, nums: List[int], target: int, **kwargs) -> List[int]:
-        LIST_OF_METHODS = ['bruteforce', 'hashmap']
         method = kwargs.get('method', 'hashmap')
-        if method not in LIST_OF_METHODS:
-            raise ValueError(f"Method '{method}' not recognized. Available methods: {LIST_OF_METHODS}")
+        if method not in self.declinations:
+            raise ValueError(f"Method '{method}' not recognized. Available methods: {self.declinations}")
         if method == 'bruteforce':
             return self.__twoSum_bruteforce(nums, target)
         else:  # method == 'hashmap'
