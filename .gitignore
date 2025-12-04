@@ -261,3 +261,9 @@ qrc_*.cpp
 ui_*.h
 Makefile*
 *build-*
+
+# Some other files
+__*
+
+# Avoid ignoring these files
+!__init__.py
